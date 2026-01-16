@@ -57,21 +57,7 @@ public class MinHeap {
             // 루트 노드의 값이 최소값이 되는 부모 노드가 될때까지 버블 다운을 수행한다.
             int currentIndex = 0;
             while (true) {
-                int left = leftChild(currentIndex);
-                int right = rightChild(currentIndex);
-                int smallest = currentIndex;
-
-                // 완전 이진 트리는 맨 왼쪽부터 채워지므로,
-                // 자식노드가 있는지 없는지 확인하기 위해 경계 검사를 수행한다.
-                if (left < heap.size() && heap.get(left) < heap.get(smallest)) {
-                    smallest = left;
-                }
-
-                // smallest가 왼쪽이 되었다면 오른쪽과 비교한다.
-                // smallest가 왼쪽이 아니라면 부모 노드와 비교한다.
-                if (right < heap.size() && heap.get(right) < heap.get(smallest)) {
-                    smallest = right;
-                }
+                int smallest = getSmallest(currentIndex);
 
                 // smallest, 즉 현재 부모 노드의 인덱스가 자식 노드의 인덱스로 변하지 않았다면
                 // 자식 노드 중 부모 노드의 값보다 작은 값을 갖는 노드가 없는 것이므로 종료한다.
@@ -88,6 +74,26 @@ public class MinHeap {
         }
 
         return min;
+    }
+
+    private int getSmallest(int currentIndex) {
+        int left = leftChild(currentIndex);
+        int right = rightChild(currentIndex);
+
+        int smallest = currentIndex;
+        // 완전 이진 트리는 맨 왼쪽부터 채워지므로,
+        // 자식노드가 있는지 없는지 확인하기 위해 경계 검사를 수행한다.
+        if (left < heap.size() && heap.get(left) < heap.get(smallest)) {
+            smallest = left;
+        }
+
+        // smallest가 왼쪽이 되었다면 오른쪽과 비교한다.
+        // smallest가 왼쪽이 아니라면 부모 노드와 비교한다.
+        if (right < heap.size() && heap.get(right) < heap.get(smallest)) {
+            smallest = right;
+        }
+
+        return smallest;
     }
 
     public int peek() {

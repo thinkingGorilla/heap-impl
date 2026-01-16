@@ -56,7 +56,7 @@ public class MinHeap {
 
             // 루트 노드의 값이 최소값이 되는 부모 노드가 될때까지 버블 다운을 수행한다.
             int currentIndex = 0;
-            while(true) {
+            while (true) {
                 int left = leftChild(currentIndex);
                 int right = rightChild(currentIndex);
                 int smallest = currentIndex;
@@ -67,6 +67,8 @@ public class MinHeap {
                     smallest = left;
                 }
 
+                // smallest가 왼쪽이 되었다면 오른쪽과 비교한다.
+                // smallest가 왼쪽이 아니라면 부모 노드와 비교한다.
                 if (right < heap.size() && heap.get(right) < heap.get(smallest)) {
                     smallest = right;
                 }
@@ -77,7 +79,10 @@ public class MinHeap {
                     break;
                 }
 
+                System.out.println(heap);
                 swap(currentIndex, smallest);
+                System.out.println(heap);
+
                 currentIndex = smallest;
             }
         }
@@ -89,6 +94,10 @@ public class MinHeap {
         return heap.get(0);
     }
 
+    public boolean isEmpty() {
+        return heap.isEmpty();
+    }
+
     public static class HeapExample {
 
         public static void main(String[] args) {
@@ -98,8 +107,11 @@ public class MinHeap {
             minHeap.insert(15);
             minHeap.insert(20);
             minHeap.insert(5);
-
             System.out.println(minHeap.peek());
+
+            while (!minHeap.isEmpty()) {
+                System.out.println(minHeap.extractMin());
+            }
         }
     }
 }
